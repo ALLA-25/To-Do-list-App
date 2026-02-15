@@ -1,0 +1,15 @@
+{
+  "name": "bettertask",
+  "version": "1.0.0",
+  "description": "to-do list app",
+  "dedault": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html --dist-dir ./dist"
+  },
+  "author": "alaa alkhabuli",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.15.4"
+  }
+}

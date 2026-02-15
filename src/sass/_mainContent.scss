@@ -1,0 +1,375 @@
+@use "variables" as *;
+@use "mixins" as *;
+%inputStyle {
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 0.4rem 1rem 0.4rem 0.8rem;
+  @include respond(mobile) {
+  }
+}
+%select {
+  @extend %inputStyle;
+  font-size: 15px;
+  color: #4e4b4bcd;
+}
+%dropdown {
+  position: absolute;
+  background-color: white;
+
+  border-radius: 0 0 8px 8px;
+  padding: 0.5rem 0.5rem 0.3rem 1rem;
+  width: 160%;
+  margin-left: -10px;
+  margin-top: 8px;
+
+  z-index: 999;
+
+  .option {
+    display: block;
+    margin-bottom: 0.2rem;
+
+    cursor: pointer;
+    &:hover {
+      color: #4e4b4baa;
+    }
+  }
+}
+.section-title {
+  font-size: 1.75rem;
+  margin: 15px 0;
+
+  @include respond(tablet) {
+    margin-top: 10px;
+    font-size: 2.5rem;
+    text-align: center;
+  }
+  @include respond(mobile) {
+    margin-top: 30px;
+
+    text-align: center;
+  }
+}
+
+main {
+  grid-area: main;
+  position: relative;
+  .todayTasks,
+  .allTasks {
+    .completed {
+      @include task-card-style(#78eba2);
+    }
+    .dueToday {
+      @include task-card-style(#c4b5fd);
+    }
+    .upcoming {
+      @include task-card-style(#f9a8d4);
+    }
+    .overdue {
+      @include task-card-style(#7b7474a9);
+    }
+  }
+
+  .empty-state {
+    text-align: center;
+    &-image {
+      width: 300px;
+      margin-bottom: 10px;
+      @include respond(tablet) {
+        width: 450px;
+      }
+      @include respond(mobile) {
+        width: 200px;
+      }
+    }
+    &-text {
+      font-size: 1.2rem;
+      @include respond(tablet) {
+        font-size: 1.5rem;
+      }
+      .add-task-openBtn {
+        color: $primary-color;
+        border: none;
+        background-color: transparent;
+        font-size: 1.1rem;
+        @include respond(mobile) {
+          display: block;
+          margin: 0 auto;
+          font-size: 0.9rem;
+        }
+      }
+      @include respond(mobile) {
+        font-size: 1rem;
+      }
+    }
+  }
+  .Dashboard-container {
+    padding: 1.6rem 1.25rem;
+
+    @include respond(tablet) {
+      padding: 2.1875rem 10rem 0;
+      margin-top: 20px;
+      gap: 2em;
+    }
+
+    .empty-state {
+      margin: 30px 0;
+    }
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      @include respond(mobile) {
+        justify-content: center;
+      }
+      @include respond(tablet) {
+        justify-content: center;
+      }
+      .reminder-openBtn {
+        margin-top: 20px;
+        margin-bottom: 15px;
+
+        font-size: 1rem;
+        background-color: rgba(102, 110, 107, 0.089);
+        border-radius: 8px;
+        padding: 0.3rem 0.5rem;
+        i {
+          margin-right: 5px;
+          position: relative;
+          &::after {
+            content: "";
+            position: absolute;
+            background-color: #e44331;
+            top: 8px;
+            right: 1px;
+            width: 6px;
+            height: 6px;
+            border-radius: 100%;
+            opacity: 0;
+          }
+          &.active::after {
+            opacity: 1;
+          }
+        }
+
+        @include respond(mobile) {
+          display: none;
+          .section-title {
+            justify-content: center;
+          }
+        }
+        @include respond(tablet) {
+          display: none;
+          .section-title {
+            justify-content: center;
+          }
+        }
+      }
+    }
+    .overview-section {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      column-gap: 15px;
+
+      @include respond(tablet) {
+        grid-template-columns: 1fr;
+        row-gap: 15px;
+      }
+      @include respond(mobile) {
+        grid-template-columns: 1fr;
+        row-gap: 15px;
+      }
+      .progress-overview {
+        height: 15rem;
+        border-radius: 0.9375rem;
+        background-color: #cfcbf6;
+        padding: 1rem;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        z-index: -1;
+        @include card-shadow;
+        @include respond(tablet) {
+          height: 25rem;
+        }
+        span {
+          font-size: 1.5rem;
+          color: white;
+          font-weight: bold;
+          margin-left: 0.625rem;
+
+          letter-spacing: 0.2vh;
+        }
+
+        .progress-chart {
+          width: 26rem;
+          height: 13.5rem;
+          margin: 0 auto 0;
+          @include respond(tablet) {
+            height: 22rem;
+            width: 35rem;
+          }
+          @include respond(mobile) {
+            height: 13rem;
+            width: 18rem;
+          }
+        }
+
+        &::before {
+          content: "";
+          position: absolute;
+          border: 4.375rem solid rgba(255, 255, 255, 0.102);
+          border-radius: 50%;
+          width: 12.5rem;
+          height: 12.5rem;
+          top: -75%;
+          left: -20%;
+          transition: all 0.8s ease;
+          filter: blur(0.5rem);
+        }
+
+        &:hover::before {
+          top: -30%;
+          left: 50%;
+          filter: blur(0.1rem);
+        }
+      }
+
+      .stats-cards {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.625rem;
+
+        .stats-card {
+          padding: 0.625rem 1.875rem;
+          overflow: hidden;
+          border-radius: 0.625rem;
+          @include card-shadow;
+          @include flex-center;
+          gap: 0.9375rem;
+          color: white;
+
+          @include respond(mobile) {
+            justify-content: space-evenly;
+          }
+          @include respond(tablet) {
+            justify-content: space-evenly;
+          }
+
+          img {
+            width: 3.75rem;
+            height: 100%;
+            border-radius: 100%;
+            @include respond(tablet) {
+              width: 5rem;
+            }
+            @include respond(mobile) {
+              width: 3rem;
+            }
+          }
+
+          &:first-child {
+            background-color: #2e2e2e;
+          }
+          &:nth-child(2) {
+            background-color: $primary-color;
+          }
+          &:last-child {
+            background-color: #f3f1fe;
+            color: #2e2e2e;
+          }
+
+          .stat-number {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.1875rem;
+          }
+
+          .stat-label {
+            font-size: 0.875rem;
+          }
+        }
+      }
+    }
+  }
+  .allTasks-container {
+    padding: 1.6rem 1.25rem;
+    @include respond(tablet) {
+      padding: 2.1875rem 10rem 0;
+      margin-top: 30px;
+    }
+    @include respond(mobile) {
+      margin-top: 30px;
+    }
+    .section-title {
+      float: left;
+      margin: 0;
+      @include respond(mobile) {
+        float: none;
+        margin-bottom: 5px;
+      }
+    }
+    .empty-state {
+      margin: 15% 0;
+    }
+    .tasks-controls {
+      display: flex;
+      justify-content: flex-end;
+      gap: 5px;
+
+      @include respond(mobile) {
+        justify-content: center;
+      }
+      .searchInput {
+        position: relative;
+
+        input {
+          border-radius: 10px;
+          border: 1px solid #ddd;
+          padding: 0.5rem 2rem 0.5rem 0.5rem;
+        }
+        .icon {
+          position: absolute;
+          font-size: 12px;
+          margin-top: 10px;
+          margin-left: -22px;
+        }
+      }
+      .filter {
+        @extend %select;
+        position: relative;
+        .icon {
+          margin-top: 3px;
+          margin-left: 15px;
+          font-size: 13px;
+        }
+        .dropdownn {
+          @extend %dropdown;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.107);
+          .option-disabled {
+            display: block;
+            font-weight: bold;
+            font-size: 18px;
+            color: black;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #dddddd89;
+            cursor: default;
+          }
+          input {
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+
+    .no-tasks-message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      color: #4e4b4bcd;
+      letter-spacing: 0.5px;
+    }
+  }
+}

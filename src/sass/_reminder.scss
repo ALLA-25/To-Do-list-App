@@ -1,0 +1,26 @@
+@use "variables" as *;
+@use "mixins" as *;
+.reminder-modal {
+  @include window-style();
+  .reminder {
+    @include task-card-style(#c4b5fd);
+  }
+  &-title {
+    display: inline;
+    font-size: 25px;
+  }
+  &-closeBtn {
+    border: none;
+    background-color: white;
+    float: right;
+    font-size: 30px;
+  }
+ 
+  .empty-state {
+    margin: 10px 0 20px;
+    p {
+      text-align: center;
+      color: #00000070;
+    }
+  }
+}

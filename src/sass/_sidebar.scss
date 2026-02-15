@@ -1,0 +1,114 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+aside {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  grid-area: aside;
+  background-color: white;
+  @include respond(tablet) {
+    display: none;
+    margin-top: 40px;
+    position: fixed;
+    width: 280px;
+    z-index: 1;
+  }
+  @include respond(mobile) {
+    display: none;
+    margin-top: 40px;
+    position: fixed;
+    width: 100%;
+    height: 50vh;
+    z-index: 1;
+  }
+  .sidebar-container {
+    padding: 35px 30px 0;
+  }
+  .profile {
+    @include flex-center;
+    gap: 15px;
+    margin-bottom: 40px;
+    cursor: pointer;
+    @include respond(tablet) {
+      margin-top: 30px;
+    }
+    @include respond(mobile) {
+      display: none;
+    }
+    .text {
+      .name {
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      .user--name {
+        font-size: 0.75rem;
+        color: #4e4b4bcd;
+      }
+    }
+    img {
+      width: 60px;
+      height: 60px;
+      border-radius: 100%;
+    }
+  }
+  .sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    li {
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 1.3px;
+      border-radius: 10px;
+      padding: 10px 20px;
+
+      cursor: pointer;
+
+      i {
+        margin-right: 10px;
+        color: #4e4b4bcd;
+      }
+    }
+    .active {
+      background: $primary-color;
+      color: white;
+      @include card-shadow;
+      i {
+        color: white;
+      }
+    }
+  }
+  .add-task-openBtn {
+    text-align: center;
+    margin-top: 150px;
+    button {
+      background: $primary-color;
+      color: white;
+      border-radius: 20px;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      @include card-shadow;
+
+      transition: 0.2s;
+      @include respond(mobile) {
+        display: none;
+      }
+
+      &:hover {
+        transform: translateY(-3px);
+        i {
+          background-color: #dde1e6a2;
+        }
+      }
+      i {
+        background-color: #dde1e667;
+        border-radius: 100%;
+        padding: 4px;
+        margin-right: 8px;
+      }
+    }
+  }
+}

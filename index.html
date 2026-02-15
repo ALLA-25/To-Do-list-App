@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./src/sass/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+
+    <title>betterTask</title>
+    <style>
+      .flatpickr-calendar {
+        background: white;
+        color: #000000;
+        /* border-radius: 0 0 8px 8px; */
+
+        font-family: "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
+      }
+      .flatpickr-day.today {
+        background: gray;
+        color: #fff;
+      }
+      .flatpickr-day:hover,
+      .flatpickr-day.selected {
+        background: #7b61ff;
+        color: #fff;
+      }
+      .flatpickr-monthDropdown-months {
+        /* background-color: #222 !important; */
+        /* color: #fff !important; */
+        border-radius: 10px;
+        background-color: white;
+        margin-bottom: 0.2rem;
+        border: none;
+      }
+
+      .flatpickr-monthDropdown-months option {
+        padding: 8px;
+        font-size: 14px;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="src/js/controller.js" type="module"></script>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><i class="fa-solid fa-bars sidebar-toggleBtn"></i></li>
+        <li>
+          <i class="fa-solid fa-plus add-task-openBtn"></i>
+        </li>
+        <li class="reminder-openBtn">
+          <i class="fa-solid fa-bell "></i>
+        </li>
+        <!-- <li class="searchInput">
+          <label for="search">
+            <i class="fa-solid fa-magnifying-glass"></i
+          ></label>
+          <input type="search" placeholder="Search task" id="search" />
+        </li> -->
+      </ul>
+    </nav>
+    <aside >
+      <div class="sidebar-container ">
+        <div class="profile">
+          <img class="avatar" src="src/images/avatar.jpg" alt="" />
+          <div class="text">
+            <p class="name">Alaa Alkhabuli</p>
+
+            <p class="user--name">@alla_alk</p>
+          </div>
+        </div>
+        <ul class="sidebar-menu">
+          <li class="active c  " data-target="dashboard">
+            <i class="fa-solid fa-house-chimney"></i> Dashboard
+          </li>
+          <li class="c " data-target="allTasks"><i class="fa-solid fa-list-check"></i>All Tasks</li>
+          <!-- <li><i class="fa-solid fa-star"></i>Important</li> -->
+          <!-- <li class="c c-openBtn " data-target="reminder"><i class="fa-solid fa-bell"></i>Reminder</li> -->
+          <!-- <li class="c" data-target="archived"><i class="fa-solid fa-folder-open"></i>Archived</li> -->
+          <li class="c" data-target="settings"><i class="fa-solid fa-gear"></i>Settings</li>
+          <li class="c" data-target="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</li>
+        </ul>
+        <div class="add-task-openBtn">
+          <button class=""><i class="fa-solid fa-plus"></i>Add Task</button>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+    
+      <div class="Dashboard-container " id="dashboard">
+        <div class="dashboard-header">
+        <h1 class="section-title" >Dashboard Activity</h1>
+         <span class="reminder-openBtn "  data-target="reminder"><i class="fa-solid fa-bell "></i>Reminder</span>
+       </div>
+        <div class="overview-section">
+          <div class="progress-overview">
+            <span>Progress Overview</span>
+            <div class="progress-chart">
+              <canvas id="myChart"></canvas>
+            </div>
+          </div>
+
+          <div class="stats-cards">
+            <div class="stats-card">
+              <div class="text">
+                <p class="stat-number completedTasks ">0</p>
+                <p class="stat-label">Tasks Completed</p>
+              </div>
+              <img src="src/images/photo_2025-08-11_03-42-05.jpg" alt="" />
+            </div>
+            <div class="stats-card">
+              <div class="text">
+                <p class="stat-number upcomingTasks">0</p>
+                <p class="stat-label">Tasks In Progress</p>
+              </div>
+              <img src="src/images/photo_2025-08-11_03-42-04.jpg" alt="" />
+            </div>
+            <div class="stats-card">
+              <div class="text">
+                <p class="stat-number overdueTasks">0</p>
+                <p class="stat-label">Overdue Tasks</p>
+              </div>
+              <img src="src/images/photo_2025-08-11_03-44-22.jpg" alt="" />
+            </div>
+          </div>
+        </div>
+
+        <h1 class="section-title">Today's Activity</h1>
+        <div class="todayTasks">
+          <!-- <div class="tasks hidden">
+            <div class="task-card in-progress">
+              <div class="task-title">
+                <i class="fa-solid fa-hourglass"></i> In Progress
+              </div>
+              <div class="task-desc">Contribute to Open Source UI Elements</div>
+            </div>
+
+            <div class="task-card upcoming">
+              <div class="task-glow"></div>
+              <div class="task-border-glow"></div>
+              <div class="task-title">
+                <i class="fa-solid fa-bell"></i> Upcoming
+              </div>
+              <div class="task-desc">
+                Contribute to Open Source UI Elements, Source UI Elements
+              </div>
+            </div>
+
+            <div class="task-card completed">
+              <div class="task-glow"></div>
+              <div class="task-border-glow"></div>
+              <div class="task-title">
+                <i class="fa-solid fa-circle-check"></i> Completed
+              </div>
+              <div class="task-desc">Contribute to Open Source</div>
+            </div>
+
+            <div class="task-card in-progress">
+              <div class="task-glow"></div>
+              <div class="task-border-glow"></div>
+              <div class="task-title">
+                <i class="fa-solid fa-hourglass"></i> In Progress
+              </div>
+              <div class="task-desc">Contribute to Open Source UI Elements</div>
+            </div>
+          </div> -->
+          <!-- <div class="empty-state">
+            <img
+              class="empty-state-image"
+              src="src/images/photo_2025-08-24_17-57-31-removebg-preview.png"
+              alt=""
+            />
+            <p class="empty-state-text">
+              No tasks scheduled yet.<button class="add-task-openBtn">
+                Add your first one!
+              </button>
+            </p>
+          </div> -->
+        </div>
+      </div>
+      <div class="allTasks-container hidden" id="allTasks">
+        
+          <h1 class="section-title">All Tasks</h1>
+         <ul class="tasks-controls">
+         
+           <li class="filter"><span>Filter</span><i class="fa-solid fa-filter icon"></i>
+             <form class="dropdownn hidden">
+              <span class=" option-disabled"">category</span>
+                <label class="option">
+                  <input type="radio" name="category">
+                   No Category
+                </label>
+               <label class="option">
+                  <input type="radio" name="category">
+                   Work
+                </label>
+                <label class="option">
+                  <input type="radio" name="category">
+                   Personal
+                </label>
+<label class="option">
+                  <input type="radio" name="category">
+                  Wishlist
+                </label>
+                <label class="option">
+                  <input type="radio" name="category">
+                  Birthday
+                </label>
+                <label class="option">
+                  <input type="radio" name="category">
+                 other
+                </label>
+                 <label class="option">
+                  <input type="radio" name="category">
+                 all
+                </label>
+                <!-- <span class=" option-disabled"">state</span>
+                 <label class="option">
+                  <input type="checkbox" >
+                  in progress
+                </label>
+                  <label class="option">
+                  <input type="checkbox">
+                 completed
+                 </label>
+                <label class="option">
+                  <input type="checkbox" >
+                 upcoming
+                </label>
+               <label class="option">
+                  <input type="checkbox" >
+                 hide
+                </label> -->
+              </form>
+           <!-- <ul class="dropdown  ">
+              <li class=" option-disabled"">cateory</li>
+             
+                <li class="option"">
+
+                  No Category</li>
+              <li class="option">Work</li>
+              <li class="option">Personal</li>
+              <li class="option">Wishlist</li>
+              <li class="option">Birthday</li>
+              <li class="option">other</li>
+              <li class="option-disabled">state</li>
+              <li class="option">in progress</li>
+              <li class="option">completed</li>
+              <li class="option">uocoming</li>
+              <li class="option">hide</li>
+            </ul> -->
+          </li>
+          <form class="search">
+          <li class="searchInput"> <input type="search" placeholder="Search by tag" id="search" />
+          
+              <i class="fa-solid fa-magnifying-glass icon"></i></li>
+         </form>
+         </ul>
+       
+         
+     
+    
+      <hr>
+                <div class="allTasks  ">
+                  <!-- <div>  <div class="task-card in-progress">
+              <div class="task-title">
+                <i class="fa-solid fa-hourglass"></i> In Progress
+              </div>
+              <div class="task-desc">Contribute to Open Source UI Elements</div>
+            </div>
+
+            <div class="task-card upcoming">
+              <div class="task-glow"></div>
+              <div class="task-border-glow"></div>
+              <div class="task-title">
+                <i class="fa-solid fa-bell"></i> Upcoming
+              </div>
+              <div class="task-desc">
+                Contribute to Open Source UI Elements, Source UI Elements
+              </div>
+            </div>
+
+            <div class="task-card completed">
+              <div class="task-glow"></div>
+              <div class="task-border-glow"></div>
+              <div class="task-title">
+                <i class="fa-solid fa-circle-check"></i> Completed
+              </div>
+              <div class="task-desc">Contribute to Open Source</div>
+            </div>
+
+            <div class="task-card in-progress">
+              <div class="task-glow"></div>
+              <div class="task-border-glow"></div>
+              <div class="task-title">
+                <i class="fa-solid fa-hourglass"></i> In Progress
+              </div>
+              <div class="task-desc">Contribute to Open Source UI Elements</div>
+            </div></div> -->
+                  <!--  -->
+            <!-- <div class="empty-state  ">
+            <img
+              class="empty-state-image"
+              src="src/images/photo_2025-08-24_17-57-31-removebg-preview.png"
+              alt=""
+            />
+            <p class="empty-state-text">
+              No tasks scheduled yet.<button class="add-task-openBtn">
+                Add your first one!
+              </button>
+            </p>
+          </div>
+          <p class="no-tasks-message hidden ">
+            No tasks found for this option!
+          </p>
+            <p class="no-tasks-message  hidden">
+            No tasks found for this search!
+          </p>
+          </div> -->
+         
+  
+           </div>
+           <!-- <div class="reminder-container hidden" id="reminder"></div>
+           <div class="archived-container hidden" id="archived"></div> -->
+           <div class="settings-container hidden" id="settings"></div>
+    </main>
+   
+    <div class="rightside">
+      <div class="pomodoro-timer">
+        <h1 class="section-title">Pomodoro Timer</h1>
+
+        <div class="timer-circle">
+          <svg
+            viewBox="0 0 200 200"
+            preserveAspectRatio="xMidYMid meet"
+            role="img"
+            aria-label="Pomodoro progress"
+          >
+            <circle class="bg" cx="100" cy="100" r="90"></circle>
+            <circle class="progress" cx="100" cy="100" r="90"></circle>
+          </svg>
+
+          <div class="time">25:00</div>
+        </div>
+
+        <button class="start-pause-btn">Start</button>
+        <button class="reset-btn">Reset</button>
+      </div>
+      <div class="quote-card">
+        <h4 class="quote-title">
+          <i class="fa-solid fa-quote-left quote-icon"></i> Quote of the day
+        </h4>
+        <blockquote>
+          "Lorem, ipsum dolor sit amet conm officia nihil"
+        </blockquote>
+        <cite>-Sara John</cite>
+      </div>
+    </div>
+    <div class="overlay hidden"></div>
+    <div class="add-task hidden">
+      <h3 class="add-task-heading">Add Task</h3>
+      <button class="add-task-closeBtn ">&times;</button>
+      <form action="" class="add-task-form">
+        <div class="title">
+          <label for="title">Task title</label>
+          <input
+            id="title"
+            placeholder="input new task here"
+          required
+          maxlength="50"
+            name="title"
+            type="text"
+          />
+        </div>
+        <div class="date">
+          <label for="taskDate">Date</label>
+          <input
+            type="text"
+            id="taskDate"
+            placeholder="Select Date"
+            name="date"
+            required
+          />
+        </div>
+        <div class="time">
+          <label for="taskTime">Time</label>
+          <input
+            class="h"
+            type="text"
+            id="taskTime"
+            placeholder="Select Time"
+            name="time"
+          />
+        </div>
+        <div class="tag">
+          <label for="tag">Tag</label>
+          <input id="tag" type="text" placeholder="Tag" required maxlength="20" name="tag" />
+        </div>
+        <div class="reminder">
+          <label for="">Reminder</label>
+          <div class="dropdown-container">
+            <span class="content" name="reminder">No Reminder</span>
+            <input  class="hidden" name="reminder" />
+            <i class="fa-solid fa-chevron-down dropdown-toggle "></i>
+
+            <!-- <svg viewBox="0 0 360 360" xml:space="preserve">
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  id="XMLID_225_"
+                  d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"
+                ></path>
+              </g>
+            </svg> -->
+
+            <!-- ////////////////////// -->
+            <ul class="dropdown hidden">
+              <li class="selected option intial-select"">No Reminder</li>
+              <!-- <li class="option">At time of task</li> -->
+              <li class="option">same day</li>
+              <li class="option">1 day before</li>
+              <li class="option">1 week before</li>
+            </ul>
+          </div>
+        </div>
+        <div class="category">
+          <label for="">Category</label>
+          <div class="dropdown-container">
+            <span class="content" >No Category</span>
+            <input class="hidden" name="category" />
+            <i class="fa-solid fa-chevron-down dropdown-toggle "></i>
+
+            <!-- <svg viewBox="0 0 360 360" xml:space="preserve">
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  id="XMLID_225_"
+                  d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"
+                ></path>
+              </g>
+            </svg> -->
+            <!-- ////////////////////// -->
+            <ul class="dropdown hidden">
+              <li class="selected option intial-select"">No Category</li>
+              <li class="option">Work</li>
+              <li class="option">Personal</li>
+              <li class="option">Wishlist</li>
+              <li class="option">Birthday</li>
+              <li class="selected create-new option">
+                <i class="fa-solid fa-plus"></i> Create New
+                <input
+                  type="text"
+                  class="newCategory hidden"
+                  placeholder="input here"
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="add-task-btns">
+          <button type="button" class="cancelBtn ">Cancel</button>
+          <button type="submit" class="saveBtn " disabled>Save</button>
+        </div>
+      </form>
+    </div>
+    <div class="overlay hidden"></div>
+    <div class="reminder-modal hidden">
+    <h3 class="reminder-modal-title"><i class="fa-solid fa-bell"  style="color: #7b61ff;"></i> Add Task</h3>
+      <button class="reminder-modal-closeBtn ">&times;</button>
+    <hr>
+      <br>
+      <div class="reminder-modal-tasks "></div>
+       <!-- <div class="task-card upcoming">
+              <div class="task-title">
+                <i class="fa-regular fa-clock"></i>after week
+              </div>
+              <div class="task-desc">Contribute to Open Source UI Elements</div>
+            </div> -->
+         
+            <!-- <div class="task-card upcoming">
+              <div class="task-title">
+               <i class="fa-regular fa-clock"></i> tomoorwo
+              </div>
+              <div class="task-desc">Contribute to Open Source UI Elements</div>
+            </div> -->
+    </div>
+    <script>
+    
+      // flatpickr("#taskDate", {
+      //   enableTime: false,
+      //   dateFormat: "M d Y",
+      //   altInput: true,
+      //   altFormat: "M d Y",
+      //   minDate: "today",
+      //   monthSelectorType: "static",
+      // });
+      // flatpickr("#taskTime", {
+      //   enableTime: true,
+      //   dateFormat: "H:i",
+      //   noCalendar: true,
+      // });
+    
+    </script>
+  </body>
+</html>
