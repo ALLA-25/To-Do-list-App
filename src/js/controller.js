@@ -153,7 +153,7 @@ const controlQuote = async function (forceRefresh = false) {
   if (forceRefresh || !modal.state.quote.text) {
     quoteData = await modal.fetchQuote();
   } else quoteData = modal.state.quote;
-
+  console.log(quoteData);
   rightsideView.renderQuote(quoteData);
 };
 const resetDailyTaskView = function (newDay = false) {

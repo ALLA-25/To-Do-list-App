@@ -157,23 +157,68 @@ export const resetReminderTasks = function () {
   };
   persistState();
 };
+// export const fetchQuote = async function () {
+//   try {
+//     const res = await fetch(API_URL);
+
+//     if (!res.ok) throw new Error("Failed to fetch quotes");
+
+//     const data = await res.json();
+
+//     // const randomIndex = Math.floor(Math.random() * data.length);
+//     // const randomQuote = data[randomIndex];
+
+//     // state.quote = randomQuote;
+//     state.quote = {
+//       text: data.slip.advice,
+//       author: "Advice Slip",
+//     };
+//     persistState();
+//     return state.quote;
+//     // return randomQuote;
+//   } catch (err) {
+//     console.error("Error fetching quote:", err);
+//     return { text: "An error occurred while fetching the quote.", author: "" };
+//   }
+// };
 export const fetchQuote = async function () {
   try {
-    const res = await fetch(API_URL);
+    const localQuotes = [
+      {
+        text: "The future belongs to those who believe in the beauty of their dreams.",
+        author: "Eleanor Roosevelt",
+      },
+      {
+        text: "Success is not the key to happiness. Happiness is the key to success.",
+        author: "Albert Schweitzer",
+      },
+      {
+        text: "Your time is limited, so don't waste it living someone else's life.",
+        author: "Steve Jobs",
+      },
+      {
+        text: "It is during our darkest moments that we must focus to see the light.",
+        author: "Aristotle",
+      },
+      {
+        text: "Believe you can and you're halfway there. Stay focused and keep going.",
+        author: "Theodore Roosevelt",
+      },
+      {
+        text: "Do not go where the path may lead, go instead where there is no path.",
+        author: "Ralph Waldo Emerson",
+      },
+    ];
 
-    if (!res.ok) throw new Error("Failed to fetch quotes");
-
-    const data = await res.json();
-
-    const randomIndex = Math.floor(Math.random() * data.length);
-    const randomQuote = data[randomIndex];
+    const randomIndex = Math.floor(Math.random() * localQuotes.length);
+    const randomQuote = localQuotes[randomIndex];
 
     state.quote = randomQuote;
 
     persistState();
     return randomQuote;
   } catch (err) {
-    console.error("Error fetching quote:", err);
+    return { text: "Keep pushing forward!", author: "Admin" };
   }
 };
 export const resetQuoteData = function () {

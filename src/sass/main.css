@@ -784,6 +784,7 @@ main .Dashboard-container .dashboard-header {
 main .Dashboard-container .dashboard-header .reminder-openBtn {
   margin-top: 20px;
   margin-bottom: 15px;
+  cursor: pointer;
   font-size: 1rem;
   background-color: rgba(102, 110, 107, 0.089);
   border-radius: 8px;
