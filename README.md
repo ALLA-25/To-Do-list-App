@@ -1,9 +1,9 @@
-#To-Do-List App
+# To-Do-List App
 
-##Description
+## Description
 Productivity dashboard built with Vanilla JavaScript. It helps users manage tasks, track weekly progress with visual charts, and stay focused using an integrated Pomodoro timer. The app automatically updates task statuses and motivational quotes at midnight every day.
 
-##Features
+## Features
 
 - Add new tasks
 - Due dates with automatic state updates (Upcoming / Due Today / Overdue / Completed)
