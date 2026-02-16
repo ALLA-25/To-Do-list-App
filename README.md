@@ -15,7 +15,7 @@ Productivity dashboard built with Vanilla JavaScript. It helps users manage task
 - LocalStorage persistence
 - Daily motivational quote
 
-##Tech Stack
+## Tech Stack
 Language: Vanilla JavaScript (ES6+)
 Architecture: Model-View-Controller (MVC) for clean, scalable, and maintainable code.
 Styling: Modern CSS3 featuring Flexbox, Grid, and Custom Properties (Variables).
