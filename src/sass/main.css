@@ -1111,6 +1111,7 @@ main .allTasks-container .no-tasks-message {
   place-items: center;
   font-weight: 700;
   font-size: 2.2rem;
+  z-index: 100;
 }
 @media (max-width: 1024px) and (min-width: 768px) {
   .rightside .pomodoro-timer .timer-circle .time {

@@ -66,6 +66,7 @@
         place-items: center;
         font-weight: 700;
         font-size: 2.2rem;
+        z-index: 100;
         @include respond(tablet) {
           font-size: 9vw;
         }
